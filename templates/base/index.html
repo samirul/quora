@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hi This is Django</h1>
+    <h1>Hi This is Django {{user}}</h1>
+    {% for qns in questions %}
+    <div>
+        <p>{{qns.id}}</p>
+        <p>{{qns.title}}</p>
+    </div>
+    {% endfor %}
 </body>
 </html>

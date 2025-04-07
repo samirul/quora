@@ -1,4 +1,40 @@
 from django.db import models
 from BaseID.models import BaseIdModel
+from accounts.models import User
 
 # Create your models here.
+
+class Question(BaseIdModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_questions')
+    title = models.CharField(max_length=255)
+    objects = models.Manager()
+
+    def __str__(self):
+        return str(self.title)
+    
+class Answers(BaseIdModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_answers')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_answers')
+    liked = models.ManyToManyField(User, default=None, blank=True, related_name='liked_answers')
+    answer = models.TextField(max_length=500, blank=True, null=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return str(self.answer)
+    
+    @property
+    def likes_count(self):
+        return self.liked.all().count()
+    
+class Likes(BaseIdModel):
+    LIKE_CHOICES =(
+        ('Like', 'Like'),
+        ('Unlike', 'Unlike')
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_likes')
+    answer = models.ForeignKey(Answers, on_delete=models.CASCADE, related_name='answer_likes')
+    value = models.CharField(choices=LIKE_CHOICES, max_length=10, default='Like')
+    objects = models.Manager()
+
+    def __str__(self):
+        return str(self.answer)
