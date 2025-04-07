@@ -1,0 +1,12 @@
+*{
+    width: 100vh;
+    min-width: 100vh;
+    box-sizing: border-box;
+    background-color: black;
+    color: turquoise;
+
+}
+
+.grid-container{
+    background-color: brown;
+}
