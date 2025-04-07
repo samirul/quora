@@ -86,3 +86,30 @@ p.date-time-updated{
 .like-icon-strap span{
     color: brown;
 }
+
+.comment-section-container-main{
+    grid-column: span 3;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 800px;
+}
+  .comment-section-container {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .comment-section-container textarea {
+    min-width: 300px;
+    resize: none;
+    height: auto;
+  }
+  
+  .comment-section-container textarea::placeholder {
+    padding-top: 5px;
+  }
+  
+  .comment-section-container button {
+    width: auto;
+    min-width: 120px;
+  }
+  
