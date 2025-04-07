@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<main class="container">
+    <div class="question-grid">
+        {% for qns in question %}
+        <div class="question-card">
+            <h4>{{qns.title}}</h4>
+            <p class="user-question">Asked by: {{qns.user.username}}</p>
+            <p class="date-time-created">Created at: {{qns.created_at}}</p>
+            <p class="date-time-updated">Updated at: {{qns.updated_at}}</p>
+        </div>
+        <div>
+            {% for ans in qns.question_answers.all %}
+            <div>
+                {{ans.answer}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock content %}
