@@ -7,13 +7,13 @@ from .models import Question, Answers
 class HomeView(View):
     def get(self, request):
         questions = Question.objects.only('id', 'title')
-        return render(request, 'base/index.html', context={'user': request.user, 'questions': questions})
+        return render(request, 'base/index.html', context={'questions': questions})
     
 
 class QuestionView(View):
     def get(self, request, ids):
         question = Question.objects.prefetch_related('question_answers').filter(id=ids)
-        return render(request, 'base/pages/questions.html', context={'user': request.user, 'question': question})
+        return render(request, 'base/pages/questions.html', context={'question': question})
     
     def post(self, request, ids):
         question = Question.objects.filter(id=ids).first()
