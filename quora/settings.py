@@ -58,6 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "quora.urls"
+AUTH_USER_MODEL = 'accounts.User'
 
 TEMPLATES = [
     {
