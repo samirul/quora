@@ -112,4 +112,11 @@ p.date-time-updated{
     width: auto;
     min-width: 120px;
   }
+
+  .comment-section-container-main-2{
+    margin: 10px auto;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 8rem;
+  }
   

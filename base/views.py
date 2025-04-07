@@ -24,3 +24,15 @@ class QuestionView(View):
             answer=comment
         )
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+class AskQuestionView(View):
+    def get(self, request):
+        return render(request, 'base/pages/ask_question.html')
+    
+    def post(self, request):
+        title = request.POST.get('form-input-text-new-question')
+        Question.objects.create(
+            user=request.user,
+            title=title
+        )
+        return HttpResponseRedirect('/')
