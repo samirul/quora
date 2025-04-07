@@ -1,0 +1,72 @@
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    max-width: 1000px;
+    margin: 60px auto;
+}
+
+.grid-container .top-section{
+    grid-column: span 3;
+    padding-top: 20px;
+    text-align: center;
+    background-color: brown;
+}
+
+.top-section h4{
+    font-size: 40px;
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.top-section p{
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.q-section{
+    grid-column: span 3;
+    margin: 60px auto;
+}
+
+.q-section h4{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 700;
+}
+
+.q-section .question-card{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 40vw;
+    gap: 20px;
+}
+
+.question-card p{
+    font-size: 15px;
+}
+
+@media screen and (max-width: 995px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    .grid-container .top-section h4{
+        font-size: 20px;
+        
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    .grid-container .top-section h4{
+        font-size: 20px;
+        
+    }
+}

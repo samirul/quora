@@ -2,10 +2,23 @@
 {% block content %}
 <main class="container">
     <div class="grid-container">
-        <div>
+        <div class="top-section">
             <h4>Welcome to QNA Section!</h4>
             <p>Here you can ask questions and get answers from the community.</p>
         </div>
-    </div>
+        <div class="q-section">
+            <h4>Questions</h4>
+            {% for question in questions %}
+            <div class="question-card">
+                <p>{{ question.title }}</p>
+                <p>{{ question.content }}</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    <div />
 </main>
 {% endblock content %}

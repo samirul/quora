@@ -2,7 +2,13 @@
 @import url('index.css');
 main{
     width: 100vh;
-    min-width: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    background: #fffde3
+    
+}
+
+body{
+    background: #fffde3
 }
