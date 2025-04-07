@@ -9,11 +9,14 @@
             <p class="date-time-created">Created at: {{qns.created_at}}</p>
             <p class="date-time-updated">Updated at: {{qns.updated_at}}</p>
         </div>
-        <div>
+        <div class="answer-card">
             {% for ans in qns.question_answers.all %}
-            <div>
-                {{ans.answer}}
-            </div>
+            <div class="answer-card-item">
+                <p class="user-answer">Answered: {{ans.user.username}}</p>
+                <p class="comment-answer">{{ans.answer}}</p><br/>
+                <p class="date-time-created">Commented at: {{ans.created_at}}</p>
+                <p class="date-time-updated">Updated at: {{ans.updated_at}}</p>
+                <p class="like-icon-strap"><i class="bi bi-hand-thumbs-up"></i><span>{{ans.likes_count}}</span></p>
             {% endfor %}
         </div>
         {% endfor %}
