@@ -31,8 +31,8 @@ class AskQuestionView(View):
     
     def post(self, request):
         title = request.POST.get('form-input-text-new-question')
-        Question.objects.create(
+        question = Question.objects.create(
             user=request.user,
             title=title
         )
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(f'/question/{question.id}/')
