@@ -21,6 +21,8 @@ class QuestionView(View):
     def post(self, request, ids):
         question = Question.objects.filter(id=ids).first()
         comment = request.POST.get('form-input-text-box')
+        if not comment:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         Answers.objects.create(
             user=request.user,
             question=question,
