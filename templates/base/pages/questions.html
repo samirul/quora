@@ -21,8 +21,10 @@
                 </div>
             </form>
         </div>
+        {% if qns.question_answers.all %}
         <div class="answer-card">
             {% for ans in qns.question_answers.all %}
+            {% if ans.answer %}
             <div class="answer-card-item">
                 <p class="user-answer">Answered: {{ans.user.username}}</p>
                 <p class="comment-answer">{{ans.answer}}</p><br />
@@ -44,10 +46,12 @@
                     </form>
                     <span class="answer-total-likes-count">{{ans.likes_count}}</span>
                 </div>
-                {% endfor %}
             </div>
+            {% endif %}
             {% endfor %}
         </div>
+        {% endif %}
+        {% endfor %}
     </div>
 </main>
 {% endblock content %}
