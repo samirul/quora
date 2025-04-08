@@ -28,12 +28,43 @@ class HomeView(View):
     
 
 class QuestionView(View):
+    """Handles displaying a specific question and its answers.
+
+    This view retrieves a question by its ID, along with its related answers,
+    and renders the question page. It also handles POST requests for adding new answers.
+
+    Args:
+        View (class): Django in build class for handling methods.
+    """
     def get(self, request, ids):
+        """Handles GET requests to display a specific question and its answers.
+
+        Retrieves the question from the database based on the provided ID,
+        prefetches related answers, and renders the question template.
+
+        Args:
+            request (request): Django request argument.
+            ids (int): question id.
+        Returns:
+            template: It renders question page with answers.
+        """
         question = Question.objects.prefetch_related('question_answers').filter(id=ids)
         return render(request, 'base/pages/questions.html', context={'question': question})
     
     @method_decorator(login_required)
     def post(self, request, ids):
+        """Handles POST requests to add a new answer to a question.
+
+        Retrieves the question by ID, creates a new answer associated with the
+        current user and question, and redirects back to the question page.
+
+        Args:
+            request (request): Django request argument.
+            ids (int): question id.
+
+        Returns:
+            redirect: redirect to question page.
+        """
         question = Question.objects.filter(id=ids).first()
         comment = request.POST.get('form-input-text-box')
         if not comment:
