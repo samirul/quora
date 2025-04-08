@@ -45,6 +45,7 @@ class AskQuestionView(View):
         return HttpResponseRedirect(f'/question/{question.id}/')
 
 class LikeView(View):
+    @method_decorator(login_required)
     def post(self, request):
         ids = request.POST.get('answer_id')
         answer = Answers.objects.get(id=ids)
