@@ -29,6 +29,7 @@ class QuestionView(View):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 class AskQuestionView(View):
+    @method_decorator(login_required)
     def get(self, request):
         return render(request, 'base/pages/ask_question.html')
     
