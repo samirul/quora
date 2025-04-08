@@ -53,6 +53,17 @@ class Answers(BaseIdModel):
         return self.liked.all().count()
     
 class Likes(BaseIdModel):
+    """Represents a like or unlike on an answer.
+
+    This model stores information about likes, including the user who liked,
+    the answer that was liked, and the value of the like (Like or Unlike).
+
+    Args:
+        BaseIdModel (class): custom made abstract model for avoid repetitiveness.
+
+    Returns:
+        String: answer.
+    """
     LIKE_CHOICES =(
         ('Like', 'Like'),
         ('Unlike', 'Unlike')
