@@ -144,7 +144,28 @@ class LoginView(View):
             return HttpResponseRedirect('/auth/login/')
         
 class LogoutView(View):
+    """Handles user logout.
+
+    This view manages the user logout process, handling GET requests.
+    It logs the user out and redirects to the login page.
+
+    Args:
+        View (class): Django in build class for handling methods.
+    """
     def get(self, request):
+        """Handles GET requests to log the user out.
+
+        Logs the user out and redirects to the login page.
+        If the user is not authenticated, redirects to the login page.
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+           redirect: redirect to login page.
+        """
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/auth/login/')
         logout(request)
         messages.success(request, "Logout Successful.")
         return HttpResponseRedirect('/auth/login/')
