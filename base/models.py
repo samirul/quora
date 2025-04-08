@@ -5,6 +5,16 @@ from accounts.models import User
 # Create your models here.
 
 class Question(BaseIdModel):
+    """Represents a question in the Quora-like platform.
+
+    This model stores information about a question, including its author, title.
+
+    Args:
+        BaseIdModel (class): custom made abstract model for avoid repetitiveness.
+
+    Returns:
+        String: question title.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_questions')
     title = models.CharField(max_length=255)
     objects = models.Manager()
