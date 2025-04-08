@@ -80,13 +80,44 @@ class RegisterView(View):
         
 
 class LoginView(View):
+    """Handles user login.
+
+    This view manages the user login process, handling both GET and POST requests.
+    It authenticates user credentials and redirects upon successful login.
+
+    Args:
+        View (class): Django in build class for handling methods.
+    """
     def get(self, request):
+        """Handles GET requests to display the login form.
+
+        If the user is already authenticated, redirects to the next URL or the home page.
+        Otherwise, renders the login template.
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            template: It renders login html page.
+        """
         next_url = request.GET.get('next', '/')
         if request.user.is_authenticated:
             return HttpResponseRedirect(next_url)
         return render(request, 'base/authentication/login.html', {'next': next_url})
     
     def post(self, request):
+        """Handles POST requests to process login data.
+
+        Retrieves user credentials, authenticates them, and redirects upon successful login.
+        Handles authentication failures and redirects back to the login page if necessary.
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            redirect: redirect to next page if successful else will redirect
+            back to login page.
+        """
         try:
             email = request.POST.get('email')
             password = request.POST.get('password')
