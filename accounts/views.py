@@ -10,6 +10,8 @@ from .models import User
          
 class RegisterView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         return render(request, 'base/authentication/register.html')
     
     def post(self, request):
@@ -48,6 +50,8 @@ class RegisterView(View):
 class LoginView(View):
     def get(self, request):
         next_url = request.GET.get('next', '/')
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(next_url)
         return render(request, 'base/authentication/login.html', {'next': next_url})
     
     def post(self, request):
