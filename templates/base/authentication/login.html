@@ -3,6 +3,7 @@
 <main class="container">
     <div class="login-grid-section">
         <div class="login-content">
+            {% include 'base/alert/alert.html' %}
             <form action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 <div class="login-section-container">
