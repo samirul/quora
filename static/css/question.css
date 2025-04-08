@@ -122,4 +122,20 @@ p.date-time-updated{
     max-width: 800px;
     margin-top: 8rem;
   }
+
+  @media screen and (max-width: 995px) {
+    .question-card h4{
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+  }
+
+  @media screen and (max-width: 345px) {
+    .question-card h4{
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+  }
+
+
   
