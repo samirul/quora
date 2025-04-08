@@ -9,12 +9,44 @@ from .models import User
 # Create your views here.
          
 class RegisterView(View):
+    """Handles user registration.
+    This view manages the user registration process, handling both GET and POST requests.
+    It validates user inputs, creates new user accounts, and redirects upon successful registration.
+
+    Args:
+        View (class): Django in build class for handling methods.
+    """
     def get(self, request):
+        """Handles GET requests to display the registration form.
+
+        If the user is already authenticated, redirects to the home page.
+        Otherwise, renders the registration template.
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            template: It renders register html page.
+        """
         if request.user.is_authenticated:
             return HttpResponseRedirect('/')
         return render(request, 'base/authentication/register.html')
     
     def post(self, request):
+        """Handles POST requests to process registration data.
+
+        Retrieves user inputs, validates them, creates a new user account,
+        and redirects to the login page upon successful registration.
+        Handles validation errors and redirects back to the registration page if necessary.
+        
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            redirect: redirect to login page if successful else will redirect
+            back to register page.
+        """
         try:
             username = request.POST.get('username')
             email = request.POST.get('email')
