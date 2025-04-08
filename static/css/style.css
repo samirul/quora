@@ -15,3 +15,33 @@ main{
 body{
     background: #fffde3;
 }
+
+.bg-body-tertiary{
+    background-color: #0a0a0a !important;
+}
+.nav-link{
+    color: #fff !important;
+    margin-right: 30px !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+
+.nav-link:hover{
+    color: #fffde3 !important;
+    transition: color 0.25s ease-in-out;
+}
+
+.navbar-brand{
+    color: #fff !important;
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    margin-left: 30px !important;
+}
+
+.navbar-toggler{
+    color: #fff !important;
+}
+
+.navbar-toggler {
+    background-color: #fff !important;
+}
