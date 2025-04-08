@@ -12,6 +12,7 @@
                         <p>Please login to your account.</p>
                     </div>
                     <div class="form-inputs">
+                        <input type="hidden" name="next" value="{{ next }}">
                         <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
                         <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
                         <button type="submit" class="btn btn-primary">Login</button>

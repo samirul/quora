@@ -47,12 +47,16 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'base/authentication/login.html')
+        next_url = request.GET.get('next', '/')
+        return render(request, 'base/authentication/login.html', {'next': next_url})
     
     def post(self, request):
         try:
             email = request.POST.get('email')
             password = request.POST.get('password')
+            next_url = request.POST.get('next') or request.GET.get('next', '/')
+
+            print(next_url)
 
             if not email or not password:
                 messages.info(request, "Please provide all details.")
@@ -66,7 +70,7 @@ class LoginView(View):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Login Successful.")
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect(next_url)
             messages.info(request, "Invalid Credentials.")
             return HttpResponseRedirect('/auth/login/')
         
