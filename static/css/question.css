@@ -121,6 +121,7 @@ p.date-time-updated{
     width: 100%;
     max-width: 800px;
     margin-top: 8rem;
+    min-height: 100vh;
   }
 
   @media screen and (max-width: 995px) {
