@@ -7,7 +7,22 @@ from .models import Question, Answers, Likes
 # Create your views here.
 
 class HomeView(View):
+    """Handles rendering the home page.
+    This view retrieves all questions and renders the home page with the question's title.
+
+    Args:
+        View (class): Django in build class for handling methods.
+    """
     def get(self, request):
+        """Handles GET requests to display the home page.
+        Retrieves all questions from the database and renders the home page template with the questions.
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            template: It renders home page with all questions.
+        """
         questions = Question.objects.only('id', 'title')
         return render(request, 'base/index.html', context={'questions': questions})
     
