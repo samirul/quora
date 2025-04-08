@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<main class="container">
+    <div class="login-grid-section">
+        <div class="login-content">
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="login-section-container">
+                    <div class="text-center mb-4">
+                        <h1>Welcome Back!</h1>
+                        <p>Please login to your account.</p>
+                    </div>
+                    <div class="form-inputs">
+                        <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+            {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            {% if success %}
+            <div class="alert alert-success mt-3" role="alert">
+                {{ success }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
