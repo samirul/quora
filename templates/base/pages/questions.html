@@ -14,8 +14,9 @@
                 {% csrf_token %}
                 <div class="comment-section-container">
                     <div class="d-flex flex-column align-items-center gap-3">
-                        <textarea class="form-control w-100" id="AddComment-Label" placeholder="Write your comments" name="form-input-text-box" rows="2"></textarea>
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                        <textarea class="form-control w-100" id="AddComment-Label" placeholder="Write your comments"
+                            name="form-input-text-box" rows="2"></textarea>
+                        <button type="submit" class="btn btn-color">Submit</button>
                     </div>
                 </div>
             </form>
@@ -31,11 +32,18 @@
                     <form action="{% url 'like' %}" class="like-icon-strap" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="answer_id" value="{{ans.id}}">
-                        <button type="submit" class="btn btn-primary">
+                        {% if user not in ans.liked.all %}
+                        <button type="submit" class="btn btn-color">
                             <i class="bi bi-hand-thumbs-up"></i>
                         </button>
+                        {% else %}
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        </button>
+                        {% endif %}
                     </form>
-                <span class="answer-total-likes-count">{{ans.likes_count}}</span></div>
+                    <span class="answer-total-likes-count">{{ans.likes_count}}</span>
+                </div>
                 {% endfor %}
             </div>
             {% endfor %}
