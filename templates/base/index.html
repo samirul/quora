@@ -11,10 +11,6 @@
             {% for question in questions %}
             <div class="question-card">
                 <p><a href="{% url 'question' question.id%}">{{ question.title }}</a></p>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet.</p>
                 {% endfor %}
             </div>
         </div>
