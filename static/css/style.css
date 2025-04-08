@@ -3,6 +3,8 @@
 @import url('question.css');
 @import url('login.css');
 @import url('register.css');
+@import url('footer.css');
+
 main{
     width: 100vh;
     min-height: 100vh;
