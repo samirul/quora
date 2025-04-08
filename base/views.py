@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .models import Question, Answers
 # Create your views here.
 
@@ -15,6 +17,7 @@ class QuestionView(View):
         question = Question.objects.prefetch_related('question_answers').filter(id=ids)
         return render(request, 'base/pages/questions.html', context={'question': question})
     
+    @method_decorator(login_required)
     def post(self, request, ids):
         question = Question.objects.filter(id=ids).first()
         comment = request.POST.get('form-input-text-box')
@@ -29,6 +32,7 @@ class AskQuestionView(View):
     def get(self, request):
         return render(request, 'base/pages/ask_question.html')
     
+    @method_decorator(login_required)
     def post(self, request):
         title = request.POST.get('form-input-text-new-question')
         question = Question.objects.create(
