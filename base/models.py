@@ -23,6 +23,17 @@ class Question(BaseIdModel):
         return str(self.title)
     
 class Answers(BaseIdModel):
+    """Represents an answer to a question.
+
+    This model stores information about an answer, including its author,
+    the question it belongs to, the answer text, and likes.
+
+    Args:
+        BaseIdModel (class): custom made abstract model for avoid repetitiveness.
+
+    Returns:
+        String: answer.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_answers')
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_answers')
     liked = models.ManyToManyField(User, default=None, blank=True, related_name='liked_answers')
@@ -34,6 +45,11 @@ class Answers(BaseIdModel):
     
     @property
     def likes_count(self):
+        """Counts the total number of likes for an answer
+
+        Returns:
+            int: The total number of likes.
+        """
         return self.liked.all().count()
     
 class Likes(BaseIdModel):
