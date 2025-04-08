@@ -5,3 +5,7 @@ from django.views import View
 class LoginView(View):
     def get(self, request):
         return render(request, 'base/authentication/login.html')
+    
+class RegisterView(View):
+    def get(self, request):
+        return render(request, 'base/authentication/register.html')
