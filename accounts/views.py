@@ -55,9 +55,7 @@ class LoginView(View):
             email = request.POST.get('email')
             password = request.POST.get('password')
             next_url = request.POST.get('next') or request.GET.get('next', '/')
-
-            print(next_url)
-
+            
             if not email or not password:
                 messages.info(request, "Please provide all details.")
                 
