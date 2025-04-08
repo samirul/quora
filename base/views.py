@@ -77,12 +77,45 @@ class QuestionView(View):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 class AskQuestionView(View):
+    """Handles asking new questions.
+
+    This view manages the process of asking new questions, handling both GET and POST requests.
+    It renders the ask question page and creates new question entries in the database.
+
+    Args:
+         View (class): Django in build class for handling methods.
+
+    Returns:
+        template: It renders ask question page for new question.
+    """
     @method_decorator(login_required)
     def get(self, request):
+        """Handles GET requests to display the ask question form.
+
+        Renders the ask question template.
+
+        Args:
+             request (request): Django request argument.
+
+        Returns:
+             template: It renders ask question page.
+        """
         return render(request, 'base/pages/ask_question.html')
     
     @method_decorator(login_required)
     def post(self, request):
+        """Handles POST requests to create a new question.
+
+        Retrieves the question title from the request, creates a new question
+        associated with the current user, and redirects to the question page.
+
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            redirect: redirect to question page.
+        """
         title = request.POST.get('form-input-text-new-question')
         question = Question.objects.create(
             user=request.user,
