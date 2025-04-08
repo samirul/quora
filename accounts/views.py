@@ -7,36 +7,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate, login, logout
 from .models import User
 # Create your views here.
-
-class LoginView(View):
-    def get(self, request):
-        return render(request, 'base/authentication/login.html')
-    
-    def post(self, request):
-        try:
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-
-            if not email or not password:
-                messages.info(request, "Please provide all details.")
-                
-            if not User.objects.filter(email=email).exists():
-             messages.info(request, "Email isn't Registered, Please Register Your Account First.")
-             return HttpResponseRedirect('/auth/login/')
-            
-            user = authenticate(email=email, password=password)
-            
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Login Successful.")
-                return HttpResponseRedirect('/')
-            messages.info(request, "Invalid Credentials.")
-            return HttpResponseRedirect('/auth/login/')
-        
-        except Exception as e:
-            messages.info(request, f"Something is wrong: {str(e)}")
-            return HttpResponseRedirect('/auth/login/')
-              
+         
 class RegisterView(View):
     def get(self, request):
         return render(request, 'base/authentication/register.html')
@@ -72,3 +43,39 @@ class RegisterView(View):
         except ValidationError as e:
             messages.info(request, f"{e.messages[0]}")
             return HttpResponseRedirect('/auth/register/')
+        
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'base/authentication/login.html')
+    
+    def post(self, request):
+        try:
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+
+            if not email or not password:
+                messages.info(request, "Please provide all details.")
+                
+            if not User.objects.filter(email=email).exists():
+             messages.info(request, "Email isn't Registered, Please Register Your Account First.")
+             return HttpResponseRedirect('/auth/login/')
+            
+            user = authenticate(email=email, password=password)
+            
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login Successful.")
+                return HttpResponseRedirect('/')
+            messages.info(request, "Invalid Credentials.")
+            return HttpResponseRedirect('/auth/login/')
+        
+        except Exception as e:
+            messages.info(request, f"Something is wrong: {str(e)}")
+            return HttpResponseRedirect('/auth/login/')
+        
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, "Logout Successful.")
+        return HttpResponseRedirect('/auth/login/')
