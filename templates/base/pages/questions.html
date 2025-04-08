@@ -27,7 +27,15 @@
                 <p class="comment-answer">{{ans.answer}}</p><br />
                 <p class="date-time-created">Commented at: {{ans.created_at}}</p>
                 <p class="date-time-updated">Updated at: {{ans.updated_at}}</p>
-                <p class="like-icon-strap"><i class="bi bi-hand-thumbs-up"></i><span>{{ans.likes_count}}</span></p>
+                <div class="like-icon-strap-p">
+                    <form action="{% url 'like' %}" class="like-icon-strap" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="answer_id" value="{{ans.id}}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        </button>
+                    </form>
+                <span class="answer-total-likes-count">{{ans.likes_count}}</span></div>
                 {% endfor %}
             </div>
             {% endfor %}

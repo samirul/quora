@@ -72,18 +72,16 @@ p.date-time-updated{
     font-size: 1rem;
 }
 
-.like-icon-strap i{
-    margin-right: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
+.like-icon-strap-p{
+    margin-left: 10px;
+    font-size: 1.0rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.like-icon-strap i:hover{
-    color: brown;
-    transition-delay: 3ms;
-}
-
-.like-icon-strap span{
+.answer-total-likes-count{
     color: brown;
 }
 

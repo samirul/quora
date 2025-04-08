@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .models import Question, Answers
+from .models import Question, Answers, Likes
 # Create your views here.
 
 class HomeView(View):
@@ -41,3 +41,24 @@ class AskQuestionView(View):
             title=title
         )
         return HttpResponseRedirect(f'/question/{question.id}/')
+
+class LikeView(View):
+    def post(self, request):
+        ids = request.POST.get('answer_id')
+        answer = Answers.objects.get(id=ids)
+        if request.user in answer.liked.all():
+            answer.liked.remove(request.user)
+        else:
+            answer.liked.add(request.user)
+        
+        like, created = Likes.objects.get_or_create(
+            user=request.user,
+            answer=answer
+        )
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+        like.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
