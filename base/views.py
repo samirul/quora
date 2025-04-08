@@ -124,8 +124,30 @@ class AskQuestionView(View):
         return HttpResponseRedirect(f'/question/{question.id}/')
 
 class LikeView(View):
+    """Handles liking and unliking answers.
+
+    This view manages the process of liking and unliking answers, handling POST requests.
+    It toggles the like status of an answer for the current user.
+
+    Args:
+        View (class): Django in build class for handling methods.
+
+    Returns:
+        redirect: redirect to previous page.
+    """
     @method_decorator(login_required)
     def post(self, request):
+        """Handles POST requests to like or unlike an answer.
+
+        Retrieves the answer ID from the request, toggles the like status for the
+        current user, and redirects back to the previous page.
+
+        Args:
+            request (request): Django request argument.
+
+        Returns:
+            redirect: redirect to previous page.
+        """
         ids = request.POST.get('answer_id')
         answer = Answers.objects.get(id=ids)
         if request.user in answer.liked.all():
