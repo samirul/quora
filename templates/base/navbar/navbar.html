@@ -7,12 +7,20 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
+          {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link me-3" href="{% url 'new-question' %}">New Question</a>
           </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link me-3" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link me-3" href="{% url 'login' %}">Login</a>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
