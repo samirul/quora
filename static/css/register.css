@@ -59,14 +59,11 @@
     margin-top: 10px;
 }
 
-/* Alert styles */
-.alert {
-    margin-top: 1rem;
-    width: 100%;
-    text-align: center;
+.text-alert-msg{
+    font-size: 1rem;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .register-grid-section {
         grid-template-columns: minmax(15px, 1fr) minmax(250px, 400px) minmax(15px, 1fr);
