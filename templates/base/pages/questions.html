@@ -31,6 +31,7 @@
                 <p class="date-time-created">Commented at: {{ans.created_at}}</p>
                 <p class="date-time-updated">Updated at: {{ans.updated_at}}</p>
                 <div class="like-icon-strap-p">
+                    {% if user.is_authenticated %}
                     <form action="{% url 'like' %}" class="like-icon-strap" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="answer_id" value="{{ans.id}}">
@@ -44,6 +45,23 @@
                         </button>
                         {% endif %}
                     </form>
+                    {% else %}
+                    <form action="{% url 'like' %}" class="like-icon-strap" method="POST">
+                        {% csrf_token %}
+                        <fieldset disabled="disabled">
+                            <input type="hidden" name="answer_id" value="{{ans.id}}">
+                            {% if user not in ans.liked.all %}
+                            <button type="submit" class="btn btn-color">
+                                <i class="bi bi-hand-thumbs-up"></i>
+                            </button>
+                            {% else %}
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-hand-thumbs-up"></i>
+                            </button>
+                            {% endif %}
+                        </fieldset>
+                    </form>
+                    {% endif %}
                     <span class="answer-total-likes-count">{{ans.likes_count}}</span>
                 </div>
             </div>
