@@ -28,7 +28,7 @@ class RegisterView(View):
         """Handles POST requests to the registration page.
 
         Validates the submitted form, saves the new user if valid, and redirects to the login page.
-        If the form is invalid, displays an error message and redirects back to the registration page.
+        If the form is invalid, displays an error message and renders registration page.
 
         Args:
             request: The incoming HTTP request.
@@ -41,5 +41,5 @@ class RegisterView(View):
             messages.success(request, "Registration Successful.")
             form.save()
             return HttpResponseRedirect('/auth/login/')
-        messages.info(request, "Something is wrong, please try again.")
-        return HttpResponseRedirect('/auth/register/')
+        messages.info(request, "Something is wrong, please check credentials.")
+        return render(request, 'base/authentication/register.html', {'form': form})
