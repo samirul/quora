@@ -40,6 +40,13 @@ class RegisterForm(UserCreationForm):
         widgets = {'username': forms.TextInput(attrs={'class': 'form-control'})}
 
 class LoginForm(AuthenticationForm):
+    """Form for user login.
+
+    Extends Django's AuthenticationForm to customize the username and password fields.
+
+    Args:
+        AuthenticationForm (class form): Django Authentication form.
+    """
     username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
     password = forms.CharField(
             label=_('Password'), strip=False,
