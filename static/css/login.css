@@ -59,6 +59,12 @@
     margin-top: 10px;
 }
 
+.form-btn button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+}
+
 /* Alert styles */
 .alert {
     margin-top: 1rem;
