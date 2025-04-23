@@ -29,25 +29,25 @@ class HomeView(View):
     
 
 class QuestionView(View):
-    """Handles displaying a specific question and its answers.
+    """Handles displaying a question and its answers.
 
-    This view retrieves a question by its ID, along with its related answers,
-    and renders the question page. It also handles POST requests for adding new answers.
+    This view retrieves a specific question and its associated answers, renders the question page,
+    and handles POST requests to submit new answers.
 
     Args:
         View (class): Django in build class for handling methods.
     """
     def get(self, request, ids):
-        """Handles GET requests to display a specific question and its answers.
+        """Handles GET requests to display a question and its answers.
 
-        Retrieves the question from the database based on the provided ID,
-        prefetches related answers, and renders the question template.
+        Retrieves the question and its answers from the database, and renders the question template.
 
         Args:
             request (request): Django request argument.
-            ids (int): question id.
+            ids (int): id of question.
+
         Returns:
-            template: It renders question page with answers.
+            template: It renders question page with question and its answers.
         """
         form = WriteCommentForm()
         question = Question.objects.prefetch_related('question_answers').filter(id=ids)
@@ -55,21 +55,20 @@ class QuestionView(View):
     
     @method_decorator(login_required)
     def post(self, request, ids):
-        """Handles POST requests to add a new answer to a question.
+        """Handles POST requests to submit a new answer to a question.
 
-        Retrieves the question by ID, creates a new answer associated with the
-        current user and question, and redirects back to the question page.
+        Retrieves the question, processes the submitted answer form, creates a new answer
+        associated with the current user and question, and redirects back to the question page.
 
         Args:
             request (request): Django request argument.
-            ids (int): question id.
+            ids (int): id of question.
 
         Returns:
             redirect: redirect to question page.
         """
         question = Question.objects.filter(id=ids).first()
         comment = WriteCommentForm(request.POST)
-        
         if comment.is_valid():
             answer = comment.cleaned_data['answer']
             Answers.objects.create(
@@ -84,25 +83,22 @@ class QuestionView(View):
 class AskQuestionView(View):
     """Handles asking new questions.
 
-    This view manages the process of asking new questions, handling both GET and POST requests.
-    It renders the ask question page and creates new question entries in the database.
+    This view renders the ask question form and processes POST requests to create new questions.
+    It then redirects to the newly created question's page.
 
     Args:
-         View (class): Django in build class for handling methods.
-
-    Returns:
-        template: It renders ask question page for new question.
+        View (class): Django in build class for handling methods.
     """
     def get(self, request):
         """Handles GET requests to display the ask question form.
 
-        Renders the ask question template.
+        Renders the ask question template with an empty form.
 
         Args:
-             request (request): Django request argument.
+            request (request): Django request argument.
 
         Returns:
-             template: It renders ask question page.
+            template: It renders ask question page with an empty form.
         """
         form = AskQuestionForm()
         return render(request, 'base/pages/ask_question.html', {'form' : form})
@@ -110,7 +106,7 @@ class AskQuestionView(View):
     def post(self, request):
         """Handles POST requests to create a new question.
 
-        Retrieves the question title from the request, creates a new question
+        Retrieves the question title from the form, creates a new question
         associated with the current user, and redirects to the question page.
 
 
@@ -132,9 +128,9 @@ class AskQuestionView(View):
         return HttpResponseRedirect(f'/question/{question_id[0]}/')
 
 class LikeView(View):
-    """Handles liking and unliking answers.
+    """Handles like and unlike answers.
 
-    This view manages the process of liking and unliking answers, handling POST requests.
+    This view manages the process of like and unlike answers, handling POST requests.
     It toggles the like status of an answer for the current user.
 
     Args:
