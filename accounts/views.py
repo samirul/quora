@@ -42,8 +42,3 @@ class RegisterView(View):
             return HttpResponseRedirect('/auth/login/')
         messages.info(request, "Something is wrong, please try again.")
         return HttpResponseRedirect('/auth/register/')
-    
-
-# class LoginView(View):
-#     def get(self, request):
-#         return render(request, 'base/authentication/login.html')
