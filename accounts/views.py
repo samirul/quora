@@ -44,6 +44,6 @@ class RegisterView(View):
         return HttpResponseRedirect('/auth/register/')
     
 
-class LoginView(View):
-    def get(self, request):
-        return render(request, 'base/authentication/login.html')
+# class LoginView(View):
+#     def get(self, request):
+#         return render(request, 'base/authentication/login.html')

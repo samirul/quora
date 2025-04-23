@@ -14,7 +14,10 @@
           {% endif %}
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link me-3" href="{% url 'logout' %}">Logout</a>
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button class="nav-link me-3" type="submit" href="{% url 'logout' %}">Logout</>
+            </form>
           </li>
           {% else %}
           <li class="nav-item">

@@ -11,10 +11,14 @@
                         <h1>Welcome Back!</h1>
                         <p>Please login to your account.</p>
                     </div>
+                    {% for fm in form %}
                     <div class="form-inputs">
                         <input type="hidden" name="next" value="{{ next }}">
-                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                        {{fm.label_tag}} {{fm}} <small>
+                            {{fm.errors|striptags}}
+                    </div>
+                    {% endfor %}
+                    <div class="form-btn">
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                     <div class="text-center mt-4">
