@@ -11,14 +11,15 @@ class RegisterView(View):
         View (class): Django in build class for handling methods.
     """
     def get(self, request):
-        """Handles GET requests to the login page.
-        Renders the login template.
+        """Handles GET requests to the registration page.
+
+        Instantiates an empty registration form and renders the registration template.
 
         Args:
             request: The incoming HTTP request.
 
         Returns:
-            template: A rendered HTML response for the registration page with an empty form.
+            A rendered HTML response for the registration page.
         """
         form = RegisterForm()
         return render(request, 'base/authentication/register.html', {'form': form})
