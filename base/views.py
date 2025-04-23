@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Question, Answers, Likes
-from .forms import AskQuestionForm
+from .forms import AskQuestionForm, WriteCommentForm
 # Create your views here.
 
 class HomeView(View):
@@ -49,8 +49,9 @@ class QuestionView(View):
         Returns:
             template: It renders question page with answers.
         """
+        form = WriteCommentForm()
         question = Question.objects.prefetch_related('question_answers').filter(id=ids)
-        return render(request, 'base/pages/questions.html', context={'question': question})
+        return render(request, 'base/pages/questions.html', context={'question': question, 'form': form})
     
     @method_decorator(login_required)
     def post(self, request, ids):
@@ -67,14 +68,15 @@ class QuestionView(View):
             redirect: redirect to question page.
         """
         question = Question.objects.filter(id=ids).first()
-        comment = request.POST.get('form-input-text-box')
-        if not comment:
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        Answers.objects.create(
-            user=request.user,
-            question=question,
-            answer=comment
-        )
+        comment = WriteCommentForm(request.POST)
+        
+        if comment.is_valid():
+            answer = comment.cleaned_data['answer']
+            Answers.objects.create(
+                user=request.user,
+                question=question,
+                answer=answer
+            )
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 
