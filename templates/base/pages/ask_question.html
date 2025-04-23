@@ -4,9 +4,13 @@
     <form action="{% url 'new-question' %}" method="POST">
         {% csrf_token %}
         <div class="comment-section-container">
+            {% for fm in form %}
             <div class="d-flex flex-column align-items-center gap-3">
-                <textarea class="form-control w-100" id="AddComment-Label" placeholder="Write your question" name="form-input-text-new-question" rows="2"></textarea>
-              <button type="submit" class="btn btn-primary">Submit</button>
+                {{fm}}
+            </div>
+            {% endfor %}
+            <div class="comment-section-container text-center">
+                <button type="submit" class="btn btn-color">Submit</button>
             </div>
         </div>
     </form>

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Question, Answers, Likes
+from .forms import AskQuestionForm
 # Create your views here.
 
 class HomeView(View):
@@ -76,6 +77,8 @@ class QuestionView(View):
         )
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
+
+@method_decorator(login_required, name='dispatch')    
 class AskQuestionView(View):
     """Handles asking new questions.
 
@@ -88,7 +91,6 @@ class AskQuestionView(View):
     Returns:
         template: It renders ask question page for new question.
     """
-    @method_decorator(login_required)
     def get(self, request):
         """Handles GET requests to display the ask question form.
 
@@ -100,9 +102,9 @@ class AskQuestionView(View):
         Returns:
              template: It renders ask question page.
         """
-        return render(request, 'base/pages/ask_question.html')
+        form = AskQuestionForm()
+        return render(request, 'base/pages/ask_question.html', {'form' : form})
     
-    @method_decorator(login_required)
     def post(self, request):
         """Handles POST requests to create a new question.
 
@@ -116,12 +118,16 @@ class AskQuestionView(View):
         Returns:
             redirect: redirect to question page.
         """
-        title = request.POST.get('form-input-text-new-question')
-        question = Question.objects.create(
-            user=request.user,
-            title=title
-        )
-        return HttpResponseRedirect(f'/question/{question.id}/')
+        question_id = []
+        form = AskQuestionForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            question = Question.objects.create(
+                user=request.user,
+                title=title
+            )
+            question_id.append(question.id)
+        return HttpResponseRedirect(f'/question/{question_id[0]}/')
 
 class LikeView(View):
     """Handles liking and unliking answers.
