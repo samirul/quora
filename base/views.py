@@ -76,7 +76,7 @@ class QuestionView(View):
                 question=question,
                 answer=answer
             )
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     
 
 @method_decorator(login_required, name='dispatch')    
@@ -169,4 +169,4 @@ class LikeView(View):
             else:
                 like.value = 'Like'
         like.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
